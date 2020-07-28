@@ -1,33 +1,29 @@
 const mongoos = require('mongoose');
 
+
+
+
 mongoos.connect('mongodb://127.0.0.1:27017/tcb-api', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
-const User = mongoos.model('User', {
-    name: {
-        type: String
+const Borbering = mongoos.model('Bolbrig', {
+    bolbringName: {
+        type: String,
+        trim: true,
+        require: true
     },
-    age: {
-        type: Number
-    },
+
     description: {
-        type: String
+        type: String,
+        trim: true,
+        require: true
     },
-    date: {
-        type: Date
+    complited: {
+        type: Boolean,
+        default: false
+    },
+    bolberingModel: {
+        type: Number,
+        require: true
     }
 })
 
-
-const saveData = new User({
-    name: 'Emad',
-    age: 28,
-    description: 'this is test bolbering',
-    date: 2021
-})
-
-saveData.save().then((saveData) => {
-    console.log(saveData)
-
-}).catch((error) => {
-    console.log('Error!!!')
-})

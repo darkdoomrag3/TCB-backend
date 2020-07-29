@@ -1,20 +1,37 @@
-const doWorkPromis = new Promise((resolve, reject) => {
 
-    setTimeout(() => {
-        //reject('something wrong')
-        resolve([1, 4, 30])
 
-    }, 2000)
+const add = (a, b) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(a + b)
+        }, 2000)
 
+    })
+
+}
+
+
+const doWork = async () => {
+    const sum = await add(1, 99)
+    return sum
+}
+
+
+doWork().then((result) => {
+    console.log(result)
+}).catch((e) => {
+    console.log(e)
 })
 
-doWorkPromis.then((resolve) => {
-    console.log('Success!', resolve)
 
-}).catch((error) => {
-    console.log('Error', error)
+
+add(2, 5).then((sum) => {
+    console.log(sum)
+    return (sum, 10)
+}).then((sum2) => {
+    console.log(sum2)
 })
 
 
 
-////// 11 3
+////// 11 12

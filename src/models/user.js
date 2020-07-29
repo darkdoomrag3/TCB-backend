@@ -1,50 +1,43 @@
-const mongoos = require('mongoose');
-const validator = require('validator');
+const mongoose = require('mongoose')
+const validator = require('validator')
 
-
-const User = mongoos.model('User', {
+const User = mongoose.model('User', {
     name: {
         type: String,
-        require: true,
+        required: true,
         trim: true
-
     },
     email: {
         type: String,
-        require: true,
+        required: true,
         trim: true,
         lowercase: true,
         validate(value) {
             if (!validator.isEmail(value)) {
-                throw new Error('Email is not valid')
+                throw new Error('Email is invalid')
             }
         }
     },
     password: {
         type: String,
+        required: true,
+        minlength: 7,
         trim: true,
-        require: true,
         validate(value) {
-            if (value.length < 6) {
-                throw new Error('password must be grather than 6')
-            } else if (value.toLowerCase().includes('password')) {
-                throw new Error('password can not be equal to password')
+            if (value.toLowerCase().includes('password')) {
+                throw new Error('Password cannot contain "password"')
             }
         }
-
     },
-
     age: {
         type: Number,
         default: 0,
         validate(value) {
             if (value < 0) {
-                throw Error('age must be possitive value')
+                throw new Error('Age must be a postive number')
             }
         }
-    },
-
-
+    }
 })
 
 module.exports = User
